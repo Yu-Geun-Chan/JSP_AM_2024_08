@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/article/modify")
 public class ArticleModifyServlet extends HttpServlet {
@@ -21,6 +22,16 @@ public class ArticleModifyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+		
+		// session에 setAttrtibute한 값을 가져오기 위해 추가
+		HttpSession session = request.getSession();
+
+		// 로그인을 하지 않았다면 글 수정 눌렀을 때 알림창에 로그인 하라고 띄우고 login 페이지로 보내는 코드
+		if (session.getAttribute("loginedMemberId") == null) {
+			response.getWriter().append(
+					String.format("<script>alert('로그인을 하고 이용해주세요.'); location.replace('../member/login');</script>"));
+			return;
+		}
 
 		// DB 연결
 		try {
@@ -48,9 +59,26 @@ public class ArticleModifyServlet extends HttpServlet {
 
 			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
 
+			
+			// 해당글이 존재하지 않는다면 존재하지 않는다고 알림창 띄우고 list 페이지로 돌려보내기
 			if (articleRow == null) {
-				// todo
+				response.getWriter().append(
+						String.format("<script>alert('%d번 글은 존재하지 않습니다.'); location.replace('list');</script>", id));
+				return;
 			}
+			
+			// 해당 글이 존재한다면 session에 저장되어 있는 로그인 한 회원의 memberId와 해당하는 글에 저장되어 있는
+			// 작성자의 memberId와 일치하는지 판단하는 코드
+			// 일치하지 않는다면 해당 글에 대한 권한이 없다고 알림창 띄우고 list 페이지로 돌려보내기
+			int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+
+			if (loginedMemberId != (int) articleRow.get("memberId")) {
+
+				response.getWriter().append(
+						String.format("<script>alert('%d번 글에 대한 권한이 없습니다.'); location.replace('list');</script>", id));
+				return;
+			}
+			// 여기까지
 
 			request.setAttribute("articleRow", articleRow);
 
