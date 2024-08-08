@@ -26,33 +26,9 @@ Map<String, Object> loginedMember = (Map<String, Object>) request.getAttribute("
 
 	<h2>게시물 목록</h2>
 
-	<div><%=loginedMemberId%>번 회원 로그인 중
-	</div>
-	<div><%=loginedMember%></div>
+	<%@ include file="../part/top_bar.jspf"%>
 
-	<%
-	if (isLogined) {
-	%>
-	<div>
-		<a href="../member/doLogout">로그아웃</a>
-		<a href="write">글쓰기</a>
-		<!-- 로그인 했을때만 글쓰기가 뜨게 처리 -->
-	</div>
-	<%
-	}
-	%>
-
-	<%
-	if (!isLogined) {
-	%>
-	<div>
-		<a href="../member/login">로그인</a>
-	</div>
-	<%
-	}
-	%>
-
-	<a href="../home/main">메인 페이지로 </a>
+	<a href="../home/main">메인 페이지로</a>
 
 	<div>
 		총 게시글 수 :

@@ -17,29 +17,31 @@ Map<String, Object> loginedMember = (Map<String, Object>) request.getAttribute("
 <body>
 	<h1>MAIN</h1>
 
-	<div><%=loginedMemberId%>번 회원 로그인 중
-	</div>
-	<div><%=loginedMember%></div>
+	<%@ include file="../part/top_bar.jspf"%>
 
-	<%
-	if (isLogined) {
-	%>
-	<div>
-		<a href="../member/doLogout">로그아웃</a>
-	</div>
-	<%
-	}
-	%>
+	<%-- 	<div><%=loginedMemberId%>번 회원 로그인 중 --%>
+	<!-- 	</div> -->
+	<%-- 	<div><%=loginedMember%></div> --%>
 
-	<%
-	if (!isLogined) {
-	%>
-	<div>
-		<a href="../member/login">로그인</a>
-	</div>
-	<%
-	}
-	%>
+	<%-- 	<% --%>
+	<%--// 	if (isLogined) {
+<%-- 	%> --%>
+	<!-- 	<div> -->
+	<!-- 		<a href="../member/doLogout">로그아웃</a> -->
+	<!-- 	</div> -->
+	<%-- 	<% --%>
+	<%--// 	}
+<%-- 	%> --%>
+
+	<%-- 	<% --%>
+	<%--// 	if (!isLogined) {
+<%-- 	%> --%>
+	<!-- 	<div> -->
+	<!-- 		<a href="../member/login">로그인</a> -->
+	<!-- 	</div> -->
+	<%-- 	<% --%>
+	<%--// 	}
+<%-- 	%> --%>
 
 	<ul>
 

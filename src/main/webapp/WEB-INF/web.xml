@@ -29,4 +29,14 @@
     <servlet-name>dasfasgadsg</servlet-name>
     <url-pattern>/dasfasgadsg</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DispatcherServlet</display-name>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <servlet-class>com.KoreaIT.java.jsp_AM.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <url-pattern>/DispatcherServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
