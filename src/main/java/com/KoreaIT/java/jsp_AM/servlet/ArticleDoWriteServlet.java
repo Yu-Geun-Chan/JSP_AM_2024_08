@@ -41,11 +41,12 @@ public class ArticleDoWriteServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 
+			// session에 setAttribute한 값을 사용하기 위해 추가
 			HttpSession session = request.getSession();
-			
 			
 			String title = request.getParameter("title");
 			String body = request.getParameter("body");
+			// 글 작성할 때 memberId를 남기기 위해 작성한 코드
 			int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 
 			SecSql sql = SecSql.from("INSERT INTO article");

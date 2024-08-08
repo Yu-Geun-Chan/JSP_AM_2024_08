@@ -11,6 +11,7 @@ int cPage = (int) request.getAttribute("page");
 int totalPage = (int) request.getAttribute("totalPage");
 int totalCnt = (int) request.getAttribute("totalCnt");
 
+// list 페이지에도 로그인한 회원의 정보를 남기기 위해 추가
 boolean isLogined = (boolean) request.getAttribute("isLogined");
 int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 Map<String, Object> loginedMember = (Map<String, Object>) request.getAttribute("loginedMember");
@@ -35,6 +36,7 @@ Map<String, Object> loginedMember = (Map<String, Object>) request.getAttribute("
 	<div>
 		<a href="../member/doLogout">로그아웃</a>
 		<a href="write">글쓰기</a>
+		<!-- 로그인 했을때만 글쓰기가 뜨게 처리 -->
 	</div>
 	<%
 	}
