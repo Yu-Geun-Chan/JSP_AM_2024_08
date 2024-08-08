@@ -40,6 +40,7 @@ public class DispatcherServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 
+			// 로그인 체크
 			boolean isLogined = false;
 			int loginedMemberId = -1;
 			Map<String, Object> loginedMember = null;
@@ -56,20 +57,20 @@ public class DispatcherServlet extends HttpServlet {
 			request.setAttribute("loginedMemberId", loginedMemberId);
 			request.setAttribute("loginedMember", loginedMember);
 
+			// URL을 가지고 오기 위한 코드
+			// ex) /JSP_AM_2024_08/s/article/list
 			String requestUri = request.getRequestURI();
 
-			System.out.println(requestUri);
-
 			String[] reqUriBits = requestUri.split("/");
-			// ~~/s/article/list
-//			System.out.println(reqUriBits[0]);
-//			System.out.println(reqUriBits[1]);
-//			System.out.println(reqUriBits[2]);
-//			System.out.println(reqUriBits[3]);
-//			System.out.println(reqUriBits[4]);
+			// ex) /JSP_AM_2024_08/s/article/list
+//			System.out.println(reqUriBits[0]); -> ""
+//			System.out.println(reqUriBits[1]); -> "JSP_AM_2024_08"
+//			System.out.println(reqUriBits[2]); -> "s"
+//			System.out.println(reqUriBits[3]); -> "article"
+//			System.out.println(reqUriBits[4]); -> "list"
 
 			if (reqUriBits.length < 5) {
-				response.getWriter().append(String.format("<script>alert('올바른 요청 x'); </script>"));
+				response.getWriter().append(String.format("<script>alert('올바른 요청이 아닙니다.'); </script>"));
 				return;
 			}
 
@@ -81,6 +82,11 @@ public class DispatcherServlet extends HttpServlet {
 
 				if (actionMethodName.equals("list")) {
 					articleController.showList();
+				} else if (actionMethodName.equals("detail")) {
+					articleController.showDetail();
+				} else if (actionMethodName.equals("write")) {
+					articleController.write();
+
 				}
 
 			}
